@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: #723b72;
     width: 100vw;
     height: 100vh;
     margin: 0px;
@@ -7,6 +7,23 @@ body {
 
 .spacer {
     height: 20%;
+    transition: opacity 1s ease-in;
+    text-align: center;
+    color: #fcf8a1;
+    font-size: 40px;
+    opacity: 0.1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#s1 {
+    opacity: 0;
+}
+
+#s2 {
+    opacity: 1;
 }
 
 #container {
@@ -19,7 +36,7 @@ body {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: white;
+    background-color: #723b72;
     position: absolute;
 }
 
@@ -27,6 +44,6 @@ body {
     position: absolute;
     width: 2px;
     height: 2px;
-    background-color: white;
+    background-color: #fcf8a1;
 }
 

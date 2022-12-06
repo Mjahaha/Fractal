@@ -1,64 +1,154 @@
 let one = document.getElementById('one'); 
 let two = document.getElementById('two'); 
 let three = document.getElementById('three'); 
+let container = document.getElementById('container');
+let text = document.getElementsByClassName('spacer')[0];
 
-let availableWidth = window.innerWidth - 100;
-let availableHeight = 0.75 * window.innerHeight - 100;
+let availableWidth = window.innerWidth - 10;
+let availableHeight = 0.75 * window.innerHeight - 10;
+
+
+
+
+let oneX;
+let oneY;
+let twoX;
+let twoY;
+let threeX;
+let threeY;
+let pointX;
+let pointY;
 
 function setPoints() {
+    const center = input => {
+        output = input - 5;
+        return output;
+    }
+
     if (availableWidth * 2 < availableHeight * 1.73) {
         console.log('calculating by width');
-        let oneY = 0;
-        one.style.top = oneY + 'px';
-        let oneX = Math.floor(availableWidth / 2);
-        one.style.left = oneX + 'px' ;
+        
+        oneY = 0;
+        one.style.top = center(oneY) + 'px';
+        oneX = Math.floor(availableWidth / 2);
+        one.style.left = center(oneX) + 'px' ;
 
-        let twoY = Math.floor(1.73 * availableWidth / 2);
-        two.style.top = twoY + 'px';
-        let twoX = 0;
-        two.style.left = twoX + 'px';
+        twoY = Math.floor(1.73 * availableWidth / 2);
+        two.style.top = center(twoY) + 'px';
+        twoX = 0;
+        two.style.left = center(twoX) + 'px';
 
-        let threeY = Math.floor(1.73 * availableWidth / 2);
-        three.style.top = threeY + 'px';
-        let threeX = Math.floor(availableWidth);
-        three.style.left = threeX + 'px';
-        return [oneX, oneY, twoX, twoY, threeX, threeY];
+        threeY = Math.floor(1.73 * availableWidth / 2);
+        three.style.top = center(threeY) + 'px';
+        threeX = Math.floor(availableWidth);
+        three.style.left = center(threeX) + 'px';
+        //return [oneX, oneY, twoX, twoY, threeX, threeY];
     } 
     else {
         console.log('calculating by height');
-        let oneY = 0
-        one.style.top = oneY + 'px';
-        let oneX = Math.floor(availableHeight / 1.73);
-        one.style.left = oneX + 'px';
+        let screenCenter = Math.floor(availableWidth / 2) - Math.floor(availableHeight / 1.73) 
+        oneY = 0
+        one.style.top = center(oneY) + 'px';
+        oneX = Math.floor(availableHeight / 1.73) + screenCenter;
+        one.style.left = center(oneX) + 'px';
 
-        let twoY = Math.floor(availableHeight);
-        two.style.top = twoY + 'px';
-        let twoX = 0
-        two.style.left = twoX + 'px';
+        twoY = Math.floor(availableHeight);
+        two.style.top = center(twoY) + 'px';
+        twoX = 0 + screenCenter;
+        two.style.left = center(twoX) + 'px';
 
-        let threeY = Math.floor(availableHeight);
-        three.style.top = threeY + 'px';
-        let threeX = Math.floor(availableHeight * 2 / 1.73);
-        three.style.left = threeX + 'px';
+        threeY = Math.floor(availableHeight);
+        three.style.top = center(threeY) + 'px';
+        threeX = Math.floor(availableHeight * 2 / 1.73) + screenCenter;
+        three.style.left = center(threeX) + 'px';
         return [oneX, oneY, twoX, twoY, threeX, threeY];
     }
 }
 
-let array = setPoints();
-let oneX = array[0];
-let oneY = array[1];
-let twoX = array[2];
-let twoY = array[3];
-let threeX = array[4];
-let threeY = array[5];
 
-let pointX = Math.floor(Math.random() * (threeX - twoX));
-let pointY = Math.floor(Math.random() * (twoY - oneY));
+/////////////// adding explanation text /////////////////////
+/////////////////////////////////////////////////////////////
 
-console.log(pointX + ' ' + pointY);
+let conversation = ['Hello there', 'I heard you like fractals', "This ones called Sierpinski's triangle", 'Check it out',
+'First we start with the three corners of a triangle', 'Then we add a small dot randomly within the triangle', 'Do you see it?', 
+'Then we choose a corner at random', 'And  we add another dot halfway between it and our last point', 'Do you see that one?', 
+'And then do the same again', 'And again', 'And more', 'And more', 'And faster', 'Alright this is taking a while', "That's it", 
+'Wow look at it go', "This should start making a Seirpinski's triangle", 'Do you see the pattern?', 
+'Following this ruleset always makes this pattern', 'Lets add another 10,000 dots', 'Wow', "And that's it", 'I hope you like the fractal :)']
+let i = 4;
 
-let randCorner;
-let reps = 5000;
+const speak = () => {
+    text.innerHTML = '<p>' + conversation[i] + '</p>';
+}
+
+
+let myInterval = setInterval( () => {
+    console.log('i = ' + i + '  - ' + conversation[i]);
+    speak();
+    text.id = 's2';
+    setTimeout( () => {
+        text.id = 's1';
+    }, 3000);
+    if (i === 4) {  //First we start with the three corners of a triangle
+        setTimeout(setPoints(), 6000);
+        implementInitialisePoints();
+        document.getElementById('one').style.backgroundColor = '#fcf8a1';
+        document.getElementById('two').style.backgroundColor = '#fcf8a1';
+        document.getElementById('three').style.backgroundColor = '#fcf8a1';
+        
+    } else if (i === 5) { //'Then we add a small dot randomly within the triangle'
+        setTimeout(addDot(), 4000);
+    } else if (i === 8) { //Then we choose a corner at random, and add another point halfway between it our last point 
+        setTimeout(addDot(), 2000);
+    } else if (i === 10) { //And then do the same again
+        setTimeout(addDot(), 2000);
+    } else if (i === 11) { //And another
+        setTimeout(addDot(), 2000);
+    } else if (i === 12) { //Lets keep adding more
+        increaseAddDot();
+    } else if (i === 21) {
+        addThousands();
+    } else if (i >= conversation.length - 1) {
+        clearInterval(myInterval);
+    }
+    i++;
+}, 
+5000);
+
+
+
+///////  Making Seirpinski's triangle //////////
+////////////////////////////////////////////////
+function implementInitialisePoints() {
+    let randCorner;
+    pointX = Math.floor(Math.random() * (threeX + twoX)/2);
+    pointY = Math.floor(Math.random() * (twoY + oneY)/2);
+
+    console.log(pointX + ' ' + pointY);
+
+    const initialisePoints = () => {
+        randCorner = Math.ceil(Math.random() * 3);
+        if (randCorner === 1) {
+            pointX = Math.abs((oneX + pointX) / 2);
+            pointY = Math.abs((oneY + pointY) / 2);
+        } else if (randCorner === 2) {
+            pointX = Math.abs((twoX + pointX) / 2);
+            pointY = Math.abs((twoY + pointY) / 2);
+        } else {
+            pointX = Math.floor(Math.abs((threeX + pointX) / 2));
+            pointY = Math.floor(Math.abs((threeY + pointY) / 2));
+        }
+    }
+
+    initialisePoints();
+    initialisePoints();
+    initialisePoints();
+    initialisePoints();
+    initialisePoints();
+    initialisePoints();
+}
+
+//Generating a dot halfway between a random corner and the previous dot
 
 const addDot = () => {
     let dot = document.createElement('div');
@@ -80,11 +170,22 @@ const addDot = () => {
         dot.style.left = pointX + 'px';
         dot.style.top = pointY + 'px';
     }
-    document.body.appendChild(dot);
+    container.appendChild(dot);
 }
 
-for (let i; i < 50000; i++) {
+const addThousands = () => {
+    for (let i = 0; i < 10000; i++) {
+        addDot();
+    }
+    console.log('Over 9000!!')
+}
+
+
+let speed = 2000;
+const increaseAddDot = () => {
     addDot();
+    speed = Math.ceil(speed / 1.085);
+    //console.log(speed);
+    setTimeout(increaseAddDot, speed);
 }
 
-//setInterval(addDot, 5);
