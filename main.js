@@ -72,7 +72,7 @@ function setPoints() {
 let conversation = ['Hello there', 'I heard you like fractals', "This ones called Sierpinski's triangle", 'Check it out',
 'First we start with the three corners of a triangle', 'Then we add a small dot randomly within the triangle', 'Do you see it?', 
 'Then we choose a corner at random', 'And  we add another dot halfway between it and our last point', 'Do you see that one?', 
-'And then do the same again', 'And again', 'And more', 'And more', 'And faster', 'Alright this is taking a while', "That's it", 
+'And then do the same again', 'And again', 'And more', 'And more', 'And faster', 'Alright this is taking a while', "Speed up", 
 'Wow look at it go', "This should start making a Seirpinski's triangle", 'Do you see the pattern?', 
 'Following this ruleset always makes this pattern', 'Lets add another 10,000 dots', 'Wow', "And that's it", 'I hope you like the fractal :)']
 let i = 4;
@@ -106,9 +106,14 @@ let myInterval = setInterval( () => {
         setTimeout(addDot(), 2000);
     } else if (i === 12) { //Lets keep adding more
         increaseAddDot();
-    } else if (i === 21) {
+    } else if (i === 22) {
         addThousands();
     } else if (i >= conversation.length - 1) {
+        setTimeout( () => {
+            text.id = 's2';
+            text.innerHTML = "<p>Seirpinski's Triangle</p>"
+
+        }, 6000)
         clearInterval(myInterval);
     }
     i++;
