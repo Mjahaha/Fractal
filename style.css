@@ -1,0 +1,27 @@
+body {
+    background-color: black;
+    position: relative;
+}
+
+.container {
+    width: 90vh;
+    aspect-ratio: 1.618;
+    background-color: grey;
+    
+}
+
+.corner {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+}
+
+.dot {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: white;
+}
+
