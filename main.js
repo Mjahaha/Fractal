@@ -3,7 +3,7 @@ let two = document.getElementById('two');
 let three = document.getElementById('three'); 
 
 let availableWidth = window.innerWidth - 100;
-let availableHeight = window.innerHeight - 100;
+let availableHeight = 0.75 * window.innerHeight - 100;
 
 function setPoints() {
     if (availableWidth * 2 < availableHeight * 1.73) {
@@ -58,6 +58,7 @@ let pointY = Math.floor(Math.random() * (twoY - oneY));
 console.log(pointX + ' ' + pointY);
 
 let randCorner;
+let reps = 5000;
 
 const addDot = () => {
     let dot = document.createElement('div');
@@ -66,23 +67,24 @@ const addDot = () => {
     if (randCorner === 1) {
         pointX = Math.abs((oneX + pointX) / 2);
         pointY = Math.abs((oneY + pointY) / 2);
-        dot.style.top = pointX + 'px';
-        dot.style.left = pointY + 'px';
+        dot.style.left = pointX + 'px';
+        dot.style.top = pointY + 'px';
     } else if (randCorner === 2) {
         pointX = Math.abs((twoX + pointX) / 2);
         pointY = Math.abs((twoY + pointY) / 2);
-        dot.style.top = pointX + 'px';
-        dot.style.left = pointY + 'px';
+        dot.style.left = pointX + 'px';
+        dot.style.top = pointY + 'px';
     } else {
-        pointX = Math.abs((threeX + pointX) / 2);
-        pointY = Math.abs((threeY + pointY) / 2);
-        dot.style.top = pointX + 'px';
-        dot.style.left = pointY + 'px';
+        pointX = Math.floor(Math.abs((threeX + pointX) / 2));
+        pointY = Math.floor(Math.abs((threeY + pointY) / 2));
+        dot.style.left = pointX + 'px';
+        dot.style.top = pointY + 'px';
     }
     document.body.appendChild(dot);
-    console.log('added dot ' +pointX + ' ' + oneX);
 }
 
-for (let i = 0; i < 10000; i++) {
+for (let i; i < 50000; i++) {
     addDot();
 }
+
+//setInterval(addDot, 5);
